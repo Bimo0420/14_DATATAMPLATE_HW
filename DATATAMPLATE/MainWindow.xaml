@@ -1,0 +1,50 @@
+﻿<Window x:Class="DATATAMPLATE.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DATATAMPLATE"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Window.Resources>
+        <!--<local:Converter x:Key="converter"/>-->
+        <DataTemplate x:Key="AirplaneTemplate">
+            <Border x:Name="border" BorderBrush="Blue" Background="Aquamarine" BorderThickness="2" Margin="5" Padding="5">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>                        
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Image Grid.Row="0" Grid.Column="0" Grid.RowSpan="3" Width="70" Height="70" Source="{Binding Path=Image}"/>
+                    <TextBlock Grid.Row="0" Grid.Column="1" Text="Марка самолета:"/>
+                    <TextBlock Grid.Row="0" Grid.Column="2" Text="{Binding Path=AeroPlane}"/>
+                    <TextBlock Grid.Row="1" Grid.Column="1" Text="Название самолета:"/>
+                    <TextBlock Grid.Row="1" Grid.Column="2" Text="{Binding Path=Name}"/>
+                    <TextBlock Grid.Row="2" Grid.Column="1" Text="Вместимость (чел):"/>
+                    <TextBlock Grid.Row="2" Grid.Column="2" Text="{Binding Path=Capacity}"/>
+                    <TextBlock Grid.Row="3" Grid.Column="1" Text="Стоимость:"/>
+                    <TextBlock Grid.Row="3" Grid.Column="2" Text="{Binding Path=Price}"/>
+                </Grid>
+            </Border>
+            <DataTemplate.Triggers>
+                <DataTrigger Binding="{Binding Path=AeroPlane}">
+                    <DataTrigger.Value>
+                        <local:AeroPlanes>Boing</local:AeroPlanes>
+                    </DataTrigger.Value>
+                    <Setter TargetName="border" Property="Background" Value="Gray"/>
+                </DataTrigger>
+            </DataTemplate.Triggers>
+        </DataTemplate>
+    </Window.Resources>
+    <StackPanel>
+        <TextBlock x:Name="prodTitle" FontSize="20" Text="Список самолетов:" HorizontalAlignment="Center"/>
+        <ListBox x:Name="ListBox" Width="400" Margin="10" ItemTemplate="{StaticResource AirplaneTemplate}" HorizontalContentAlignment="Left"/>
+    </StackPanel>
+</Window>
